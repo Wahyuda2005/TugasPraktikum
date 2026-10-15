@@ -10,16 +10,9 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Build Database & App') {
-            steps {
-                echo 'Menyiapkan database dan dependensi aplikasi...'
-                bat 'python -m pip install --upgrade pip'
-                bat 'pip install -r requirements.txt'
-            }
-        }
         stage('Build Docker Image') {
             steps {
-                echo 'Membuat Docker Image...'
+                echo 'Membuat Docker Image dan Database...'
                 bat "docker build -t %IMAGE_NAME%:%BUILD_NUMBER% ."
             }
         }
